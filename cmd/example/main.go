@@ -13,22 +13,22 @@ type TestRequest struct {
 }
 
 type TestResponse struct {
-	StringField string `json:"rsp_string_field"`
-	IntField    int    `json:"rsp_int_field"`
+	RspStringField string `json:"rsp_string_field"`
+	RspIntField    int    `json:"rsp_int_field"`
 }
 
 func main() {
 	mux.Get("/value", func(h TestRequest) (TestResponse, error) {
 		return TestResponse{
-			StringField: h.StringField,
-			IntField:    h.IntField,
+			RspStringField: h.StringField,
+			RspIntField:    h.IntField,
 		}, nil
 	})
 
 	mux.Get("/pointer", func(h *TestRequest) (*TestResponse, error) {
 		return &TestResponse{
-			StringField: h.StringField,
-			IntField:    h.IntField,
+			RspStringField: h.StringField,
+			RspIntField:    h.IntField,
 		}, nil
 	})
 

@@ -15,9 +15,6 @@ func New() *Logger {
 	l := logrus.New()
 	l.SetFormatter(&ecslogrus.Formatter{})
 
-	// return &Logger{
-	// 	l: l.WithField("service_name", name),
-	// }
 	return &Logger{
 		l: logrus.NewEntry(l),
 	}

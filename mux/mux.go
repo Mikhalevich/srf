@@ -11,12 +11,8 @@ import (
 )
 
 var (
-	mux *chi.Mux
-)
-
-func init() {
 	mux = chi.NewRouter()
-}
+)
 
 type Empty struct {
 }
