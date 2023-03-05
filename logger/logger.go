@@ -73,8 +73,10 @@ func (lw *Logger) WithField(key string, value interface{}) *Logger {
 	}
 }
 
-func (lw *Logger) WithFields(fields map[string]interface{}) *Logger {
+type Fields map[string]interface{}
+
+func (lw *Logger) WithFields(fields Fields) *Logger {
 	return &Logger{
-		l: lw.l.WithFields(fields),
+		l: lw.l.WithFields(logrus.Fields(fields)),
 	}
 }

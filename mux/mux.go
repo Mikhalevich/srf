@@ -34,7 +34,10 @@ func makeHandler[REQ any, RSP any](h Handler[REQ, RSP]) http.HandlerFunc {
 			return
 		}
 
-		log.WithField("handler_request", string(b)).Info("request received")
+		log.WithFields(logger.Fields{
+			"handler_request": string(b),
+			"request_path":    r.URL.Path,
+		}).Info("request received")
 
 		var t REQ
 		if len(b) > 0 {

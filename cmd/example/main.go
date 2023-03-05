@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
+	"github.com/Mikhalevich/srf/logger"
 	"github.com/Mikhalevich/srf/mux"
 )
 
@@ -18,8 +18,15 @@ type TestResponse struct {
 }
 
 func main() {
-	mux.Get("/", func(h TestRequest) (TestResponse, error) {
+	mux.Get("/value", func(h TestRequest) (TestResponse, error) {
 		return TestResponse{
+			StringField: h.StringField,
+			IntField:    h.IntField,
+		}, nil
+	})
+
+	mux.Get("/pointer", func(h *TestRequest) (*TestResponse, error) {
+		return &TestResponse{
 			StringField: h.StringField,
 			IntField:    h.IntField,
 		}, nil
@@ -29,7 +36,8 @@ func main() {
 		return mux.Empty{}, nil
 	})
 
+	log := logger.New()
 	if err := http.ListenAndServe(":8080", mux.Mux()); err != nil {
-		fmt.Printf("lister and server error: %v\n", err)
+		log.WithError(err).Error("lister and server error")
 	}
 }
